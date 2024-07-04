@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json()); //json parser
 
 //application route
-app.use('/api/v1', router);
+app.use('/api', router);
 
 //testing route
 app.get('/', (req: Request, res: Response) => {
