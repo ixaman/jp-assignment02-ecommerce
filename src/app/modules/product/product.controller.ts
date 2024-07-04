@@ -42,13 +42,34 @@ const updateProduct = async (req: Request, res: Response) => {
   }
 };
 
-const getAllProducts = async (req: Request, res: Response) => {
+const deleteProduct = async (req: Request, res: Response) => {
   try {
-    const result = await ProductServices.handleGetAllProducts();
+    const { productId } = req.params;
+    await ProductServices.handleDeleteProduct(productId);
 
     res.status(httpStatusCode.OK).json({
       success: true,
-      message: 'Products fetched successfully!',
+      message: 'Product deleted successfully!',
+      data: null,
+    });
+  } catch (error: any) {
+    res.status(httpStatusCode.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: error.message || 'Failed to delete product!',
+      data: error,
+    });
+  }
+};
+
+const getAllProducts = async (req: Request, res: Response) => {
+  try {
+    const result = await ProductServices.handleGetAllProducts(req.query);
+
+    res.status(httpStatusCode.OK).json({
+      success: true,
+      message: req?.query?.searchTerm
+        ? `Products matching search term '${req?.query?.searchTerm}' fetched successfully!`
+        : 'Products fetched successfully!',
       data: result,
     });
   } catch (error: any) {
@@ -84,4 +105,5 @@ export const ProductControllers = {
   getAllProducts,
   getSingleProduct,
   updateProduct,
+  deleteProduct,
 };

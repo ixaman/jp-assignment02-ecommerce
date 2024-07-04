@@ -7,8 +7,18 @@ const handleCreateProduct = async (productData: TProduct) => {
   return result;
 };
 
-const handleGetAllProducts = async () => {
-  const result = await Product.find();
+const handleGetAllProducts = async (query: Record<string, unknown>) => {
+  const searchableFields = ['name', 'description', 'category'];
+  let searchTerm = '';
+  if (query.searchTerm) {
+    searchTerm = query.searchTerm as string;
+  }
+
+  const result = await Product.find({
+    $or: searchableFields.map((field) => ({
+      [field]: { $regex: searchTerm, $options: 'i' },
+    })),
+  });
 
   return result;
 };
@@ -32,9 +42,16 @@ const handleUpdateProduct = async (
   return result;
 };
 
+const handleDeleteProduct = async (productId: string) => {
+  const result = await Product.findByIdAndDelete(productId);
+
+  return result;
+};
+
 export const ProductServices = {
   handleCreateProduct,
   handleGetAllProducts,
   handleGetSingleProduct,
   handleUpdateProduct,
+  handleDeleteProduct,
 };
