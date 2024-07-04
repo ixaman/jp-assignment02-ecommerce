@@ -19,8 +19,22 @@ const handleGetSingleProduct = async (id: string) => {
   return result;
 };
 
+const handleUpdateProduct = async (
+  id: string,
+  productData: Partial<TProduct>
+) => {
+  const result = Product.findByIdAndUpdate(id, productData, {
+    new: true,
+    upsert: true,
+    runValidators: true,
+  });
+
+  return result;
+};
+
 export const ProductServices = {
   handleCreateProduct,
   handleGetAllProducts,
   handleGetSingleProduct,
+  handleUpdateProduct,
 };

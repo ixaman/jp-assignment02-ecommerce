@@ -20,6 +20,28 @@ const createProduct = async (req: Request, res: Response) => {
   }
 };
 
+const updateProduct = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const result = await ProductServices.handleUpdateProduct(
+      productId,
+      req.body
+    );
+
+    res.status(httpStatusCode.OK).json({
+      success: true,
+      message: 'Product updated successfully!',
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(httpStatusCode.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: error.message || 'Failed to update product!',
+      data: error,
+    });
+  }
+};
+
 const getAllProducts = async (req: Request, res: Response) => {
   try {
     const result = await ProductServices.handleGetAllProducts();
@@ -61,4 +83,5 @@ export const ProductControllers = {
   createProduct,
   getAllProducts,
   getSingleProduct,
+  updateProduct,
 };

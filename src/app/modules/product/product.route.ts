@@ -15,4 +15,10 @@ router.get('/', ProductControllers.getAllProducts);
 
 router.get('/:productId', ProductControllers.getSingleProduct);
 
+router.put(
+  '/:productId',
+  validateRequest(ProductValidation.updateProductValidationSchema),
+  ProductControllers.updateProduct
+);
+
 export const ProductsRoute = router;
