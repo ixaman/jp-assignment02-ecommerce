@@ -7,6 +7,20 @@ const handleCreateProduct = async (productData: TProduct) => {
   return result;
 };
 
+const handleGetAllProducts = async () => {
+  const result = await Product.find();
+
+  return result;
+};
+
+const handleGetSingleProduct = async (id: string) => {
+  const result = await Product.findById(id);
+
+  return result;
+};
+
 export const ProductServices = {
   handleCreateProduct,
+  handleGetAllProducts,
+  handleGetSingleProduct,
 };

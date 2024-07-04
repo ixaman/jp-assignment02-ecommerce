@@ -20,6 +20,45 @@ const createProduct = async (req: Request, res: Response) => {
   }
 };
 
+const getAllProducts = async (req: Request, res: Response) => {
+  try {
+    const result = await ProductServices.handleGetAllProducts();
+
+    res.status(httpStatusCode.OK).json({
+      success: true,
+      message: 'Products fetched successfully!',
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(httpStatusCode.BAD_REQUEST).json({
+      success: false,
+      message: error.message || 'Failed to fetch products!',
+      data: error,
+    });
+  }
+};
+
+const getSingleProduct = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const result = await ProductServices.handleGetSingleProduct(productId);
+
+    res.status(httpStatusCode.OK).json({
+      success: true,
+      message: 'Product fetched successfully!',
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(httpStatusCode.BAD_REQUEST).json({
+      success: false,
+      message: error.message || 'Failed to fetch product!',
+      data: error,
+    });
+  }
+};
+
 export const ProductControllers = {
   createProduct,
+  getAllProducts,
+  getSingleProduct,
 };
