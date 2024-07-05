@@ -12,7 +12,7 @@ const createProduct = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error: any) {
-    res.status(httpStatusCode.NO_CONTENT).json({
+    res.status(httpStatusCode.NOT_FOUND).json({
       success: false,
       message: error.message || 'Failed to create product!',
       data: error,
