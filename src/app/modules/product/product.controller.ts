@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import { ProductServices } from './product.service';
 import httpStatusCode from 'http-status';
@@ -15,7 +16,6 @@ const createProduct = async (req: Request, res: Response) => {
     res.status(httpStatusCode.NOT_FOUND).json({
       success: false,
       message: error.message || 'Failed to create product!',
-      data: error,
     });
   }
 };
@@ -37,7 +37,6 @@ const updateProduct = async (req: Request, res: Response) => {
     res.status(httpStatusCode.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: error.message || 'Failed to update product!',
-      data: error,
     });
   }
 };
@@ -56,7 +55,6 @@ const deleteProduct = async (req: Request, res: Response) => {
     res.status(httpStatusCode.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: error.message || 'Failed to delete product!',
-      data: error,
     });
   }
 };
@@ -76,7 +74,6 @@ const getAllProducts = async (req: Request, res: Response) => {
     res.status(httpStatusCode.BAD_REQUEST).json({
       success: false,
       message: error.message || 'Failed to fetch products!',
-      data: error,
     });
   }
 };
@@ -95,7 +92,6 @@ const getSingleProduct = async (req: Request, res: Response) => {
     res.status(httpStatusCode.BAD_REQUEST).json({
       success: false,
       message: error.message || 'Failed to fetch product!',
-      data: error,
     });
   }
 };

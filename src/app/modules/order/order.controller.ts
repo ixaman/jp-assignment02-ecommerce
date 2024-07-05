@@ -16,7 +16,6 @@ const createOrder = async (req: Request, res: Response) => {
     res.status(httpStatusCode.NOT_FOUND).json({
       success: false,
       message: err.message || 'Failed to create order!',
-      data: err,
     });
   }
 };
@@ -34,7 +33,6 @@ const getAllOrders = async (req: Request, res: Response) => {
     res.status(httpStatusCode.NOT_FOUND).json({
       success: false,
       message: err.message || 'Failed to fetch orders!',
-      data: err,
     });
   }
 };
