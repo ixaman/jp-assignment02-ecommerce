@@ -82,6 +82,9 @@ const getSingleProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
     const result = await ProductServices.handleGetSingleProduct(productId);
+    if (!result) {
+      throw new Error('Product not found!');
+    }
 
     res.status(httpStatusCode.OK).json({
       success: true,

@@ -43,6 +43,10 @@ const handleUpdateProduct = async (
 };
 
 const handleDeleteProduct = async (productId: string) => {
+  const isExist = await Product.isProductExist(productId);
+  if (!isExist) {
+    throw new Error('Product not found!');
+  }
   const result = await Product.findByIdAndDelete(productId);
 
   return result;

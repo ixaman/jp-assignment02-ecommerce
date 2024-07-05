@@ -26,7 +26,9 @@ const getAllOrders = async (req: Request, res: Response) => {
 
     res.status(httpStatusCode.CREATED).json({
       success: true,
-      message: 'Orders fetched successfully!',
+      message: req?.query?.email
+        ? 'Orders fetched successfully for user email!'
+        : 'Orders fetched successfully!',
       data: result,
     });
   } catch (err: any) {
