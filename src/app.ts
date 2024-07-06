@@ -12,9 +12,12 @@ app.use(express.json()); //json parser
 //application route
 app.use('/api', router);
 
-//testing route
+//default route
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!');
+  res.json({
+    success: true,
+    message: 'Welcome To Assignment-02 Ecommerce backend API',
+  });
 });
 
 //not found route
