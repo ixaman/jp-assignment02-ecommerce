@@ -64,9 +64,9 @@ const handleGetAllOrders = async (query: Record<string, unknown>) => {
   let result;
 
   if (query.email) {
-    result = await Order.find({ email: query.email });
+    result = await Order.find({ email: query.email }).select('-__v -_id');
   } else {
-    result = await Order.find();
+    result = await Order.find().select('-__v -_id');
   }
 
   return result;

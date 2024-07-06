@@ -18,13 +18,13 @@ const handleGetAllProducts = async (query: Record<string, unknown>) => {
     $or: searchableFields.map((field) => ({
       [field]: { $regex: searchTerm, $options: 'i' },
     })),
-  });
+  }).select('-__v');
 
   return result;
 };
 
 const handleGetSingleProduct = async (id: string) => {
-  const result = await Product.findById(id);
+  const result = await Product.findById(id).select('-_id -__v');
 
   return result;
 };
